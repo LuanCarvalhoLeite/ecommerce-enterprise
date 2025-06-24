@@ -1,4 +1,4 @@
-﻿namespace ECommerceEnterprise.Identidade.API.Extensions;
+﻿namespace ECommerceEnterprise.Identidade.API.Identidade;
 
 public class AppSettings
 {

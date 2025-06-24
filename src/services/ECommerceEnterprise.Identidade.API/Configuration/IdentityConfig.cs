@@ -1,10 +1,7 @@
 ﻿using ECommerceEnterprise.Identidade.API.Data;
-using ECommerceEnterprise.Identidade.API.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ECommerceEnterprise.WepAPI.Core.Identidade;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace ECommerceEnterprise.Identidade.API.Configuration;
 
@@ -23,31 +20,8 @@ public static class IdentityConfig
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-        //JWT
-        var appSettingsSection = configuration.GetSection("AppSettings");
-        services.Configure<AppSettings>(appSettingsSection);
 
-        var appSettings = appSettingsSection.Get<AppSettings>();
-        var key = Encoding.ASCII.GetBytes(appSettings!.Secret);
-
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(bearerOptions =>
-        {
-            bearerOptions.RequireHttpsMetadata = true;
-            bearerOptions.SaveToken = true;
-            bearerOptions.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidAudience = appSettings.ValidoEm,
-                ValidIssuer = appSettings.Emissor
-            };
-        });
+        services.AddJwtConfiguration(configuration);
 
         return services;
     }

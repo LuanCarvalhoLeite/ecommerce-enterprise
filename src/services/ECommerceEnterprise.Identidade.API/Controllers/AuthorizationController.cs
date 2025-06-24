@@ -1,4 +1,4 @@
-﻿using ECommerceEnterprise.Identidade.API.Extensions;
+﻿using ECommerceEnterprise.Identidade.API.Identidade;
 using ECommerceEnterprise.Identidade.API.Models;
 using ECommerceEnterprise.Identidade.API.Models.Token;
 using Microsoft.AspNetCore.Identity;
