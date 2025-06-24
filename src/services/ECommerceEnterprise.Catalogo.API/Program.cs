@@ -4,7 +4,10 @@ using ECommerceEnterprise.WepAPI.Core.Identidade;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddJwtConfiguration(builder.Configuration);
+
 builder.Services.RegisterService(builder.Configuration);
+
+builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
 
@@ -17,6 +20,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

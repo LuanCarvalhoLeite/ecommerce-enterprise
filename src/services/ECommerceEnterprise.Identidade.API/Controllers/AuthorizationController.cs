@@ -108,7 +108,7 @@ public class AuthorizationController : MainController
         }
 
         var identityClaims = new ClaimsIdentity(claims);
-        identityClaims.AddClaims(claims);
+        //identityClaims.AddClaims(claims);
 
         return identityClaims;
     }
