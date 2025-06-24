@@ -23,6 +23,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseCors("Total");
 app.MapControllers();
 
 app.Run();

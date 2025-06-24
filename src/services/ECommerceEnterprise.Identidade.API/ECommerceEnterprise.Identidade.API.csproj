@@ -30,8 +30,4 @@
     <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.WepAPI.Core\ECommerceEnterprise.WepAPI.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>
