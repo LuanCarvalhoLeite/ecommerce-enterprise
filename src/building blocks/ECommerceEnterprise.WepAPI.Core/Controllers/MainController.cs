@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
+using FluentValidation.Results;
 
-namespace ECommerceEnterprise.Identidade.API.Controllers;
+namespace ECommerceEnterprise.WepAPI.Core.Controllers;
 
 public abstract class MainController : ControllerBase
 {
@@ -22,6 +24,16 @@ public abstract class MainController : ControllerBase
     {
         var erros = modelState.Values.SelectMany(e => e.Errors);
         foreach (var erro in erros)
+        {
+            AdicionarErroProcessamento(erro.ErrorMessage);
+        }
+
+        return CustomResponse();
+    }
+
+    protected ActionResult CustomResponse(ValidationResult validationResult)
+    {
+        foreach (var erro in validationResult.Errors)
         {
             AdicionarErroProcessamento(erro.ErrorMessage);
         }

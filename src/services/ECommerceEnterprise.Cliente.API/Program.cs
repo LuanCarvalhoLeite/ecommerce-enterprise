@@ -1,6 +1,8 @@
 using ECommerceEnterprise.Cliente.API.Configuration;
+using MediatR;
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddMediatR(typeof(Program));
 builder.Services.AddRegisterService(builder.Configuration);
 
 var app = builder.Build();

@@ -1,6 +1,7 @@
 ﻿using ECommerceEnterprise.Identidade.API.Identidade;
 using ECommerceEnterprise.Identidade.API.Models;
 using ECommerceEnterprise.Identidade.API.Models.Token;
+using ECommerceEnterprise.WepAPI.Core.Controllers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -108,7 +109,6 @@ public class AuthorizationController : MainController
         }
 
         var identityClaims = new ClaimsIdentity(claims);
-        //identityClaims.AddClaims(claims);
 
         return identityClaims;
     }

@@ -3,5 +3,6 @@
 namespace ECommerceEnterprise.Core.Data;
 public interface IRepository<T> : IDisposable where T : IAgregateRoot
 {
+    IUnitOfWork UnitOfWork { get; }
 }
  
