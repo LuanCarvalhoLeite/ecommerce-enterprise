@@ -1,4 +1,6 @@
-﻿using ECommerceEnterprise.Identidade.API.Identidade;
+﻿using EasyNetQ;
+using ECommerceEnterprise.Core.Messages.Integration;
+using ECommerceEnterprise.Identidade.API.Identidade;
 using ECommerceEnterprise.Identidade.API.Models;
 using ECommerceEnterprise.Identidade.API.Models.Token;
 using ECommerceEnterprise.WepAPI.Core.Controllers;
@@ -18,6 +20,7 @@ public class AuthorizationController : MainController
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly AppSettings _appSettings; 
+    private IBus _bus;
 
     public AuthorizationController(
             SignInManager<IdentityUser> signInManager, 
@@ -46,6 +49,7 @@ public class AuthorizationController : MainController
 
         if (result.Succeeded)
         {
+            var sucesso = await RegistrarCliente(userRegister);
             return CustomResponse(await GerarJwt(userRegister.Email));
         }
         foreach(var error in result.Errors)
@@ -54,6 +58,20 @@ public class AuthorizationController : MainController
         }
 
         return CustomResponse();
+    }
+
+    private async Task<ResponseMessage> RegistrarCliente(UserRegisterViewModel userRegister)
+    {
+        var usuario = await _userManager.FindByEmailAsync(userRegister.Email);
+
+        var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+            Guid.Parse(usuario!.Id), userRegister.Nome, userRegister.Email, userRegister.Cpf);
+
+        _bus = RabbitHutch.CreateBus("host=localhost:5672", x => x.EnableNewtonsoftJson());
+
+        var sucesso = await _bus.Rpc.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+
+        return sucesso;
     }
 
     [HttpPost("autenticar")]

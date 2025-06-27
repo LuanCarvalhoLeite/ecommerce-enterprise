@@ -19,6 +19,6 @@ public class CLientesController : MainController
     {
         var result = await _mediatorHandler.EnviarComando(new RegistrarClienteCommand(Guid.NewGuid(), "Jose", "jose@gmail.com", "79566566050"));
        
-        return CustomResponse(result);
+        return CustomResponse();
     }
 }

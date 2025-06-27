@@ -3,6 +3,7 @@ using ECommerceEnterprise.Cliente.API.Application.Events;
 using ECommerceEnterprise.Cliente.API.Data;
 using ECommerceEnterprise.Cliente.API.Data.Repository;
 using ECommerceEnterprise.Cliente.API.Models;
+using ECommerceEnterprise.Cliente.API.Services;
 using ECommerceEnterprise.Core.Commands;
 using ECommerceEnterprise.Core.Mediator;
 using FluentValidation.Results;
@@ -40,5 +41,7 @@ public static class DependencyInjectionClient
 
         services.AddScoped<IClienteRepository, ClienteRepository>();
         services.AddScoped<ClientesContext>();
+
+        services.AddHostedService<RegistroClienteIntegrationHandler>();
     }
 }
