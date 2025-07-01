@@ -34,6 +34,8 @@ public static class DependencyInjectionClient
                         .AllowAnyHeader());
         });
 
+        services.AddMessageBusConfiguration(configuration);
+
         services.AddScoped<IMediatorHandler, MediatorHandler>();
         services.AddScoped<IRequestHandler<RegistrarClienteCommand, ValidationResult>, ClienteCommandHandler>();
 
@@ -41,7 +43,5 @@ public static class DependencyInjectionClient
 
         services.AddScoped<IClienteRepository, ClienteRepository>();
         services.AddScoped<ClientesContext>();
-
-        services.AddHostedService<RegistroClienteIntegrationHandler>();
     }
 }

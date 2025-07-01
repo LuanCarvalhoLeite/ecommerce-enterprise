@@ -21,4 +21,10 @@ public class CLientesController : MainController
        
         return CustomResponse();
     }
+
+    [HttpGet("Teste")]
+    public IActionResult Get()
+    {
+        return Ok("Mediator injetado com sucesso!");
+    }
 }

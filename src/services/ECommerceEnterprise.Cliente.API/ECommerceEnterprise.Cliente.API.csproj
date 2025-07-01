@@ -10,21 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyNetQ" Version="7.8.0" />
-    <PackageReference Include="EasyNetQ.Serialization.NewtonsoftJson" Version="7.8.0" />
-    <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.15" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.15">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.15" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
@@ -34,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.Core\ECommerceEnterprise.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.MessageBus\ECommerceEnterprise.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.WepAPI.Core\ECommerceEnterprise.WepAPI.Core.csproj" />
   </ItemGroup>
 

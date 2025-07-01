@@ -1,8 +1,8 @@
-﻿using EasyNetQ;
-using ECommerceEnterprise.Core.Messages.Integration;
+﻿using ECommerceEnterprise.Core.Messages.Integration;
 using ECommerceEnterprise.Identidade.API.Identidade;
 using ECommerceEnterprise.Identidade.API.Models;
 using ECommerceEnterprise.Identidade.API.Models.Token;
+using ECommerceEnterprise.MessageBus;
 using ECommerceEnterprise.WepAPI.Core.Controllers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,17 +20,18 @@ public class AuthorizationController : MainController
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly AppSettings _appSettings; 
-    private IBus _bus;
+    private readonly IMessageBus _bus;
 
     public AuthorizationController(
             SignInManager<IdentityUser> signInManager, 
             UserManager<IdentityUser> userManager, 
-            IOptions<AppSettings> appSettings
-        )
+            IOptions<AppSettings> appSettings,
+            IMessageBus bus)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _appSettings = appSettings.Value;
+        _bus = bus;
     }
 
     [HttpPost("nova-conta")]
@@ -49,7 +50,13 @@ public class AuthorizationController : MainController
 
         if (result.Succeeded)
         {
-            var sucesso = await RegistrarCliente(userRegister);
+            var ClienteResult = await RegistrarCliente(userRegister);
+
+            if (!ClienteResult.ValidationResult.IsValid)
+            {
+                await _userManager.DeleteAsync(user);
+                return CustomResponse(ClienteResult.ValidationResult);
+            }
             return CustomResponse(await GerarJwt(userRegister.Email));
         }
         foreach(var error in result.Errors)
@@ -58,20 +65,6 @@ public class AuthorizationController : MainController
         }
 
         return CustomResponse();
-    }
-
-    private async Task<ResponseMessage> RegistrarCliente(UserRegisterViewModel userRegister)
-    {
-        var usuario = await _userManager.FindByEmailAsync(userRegister.Email);
-
-        var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
-            Guid.Parse(usuario!.Id), userRegister.Nome, userRegister.Email, userRegister.Cpf);
-
-        _bus = RabbitHutch.CreateBus("host=localhost:5672", x => x.EnableNewtonsoftJson());
-
-        var sucesso = await _bus.Rpc.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
-
-        return sucesso;
     }
 
     [HttpPost("autenticar")]
@@ -164,4 +157,22 @@ public class AuthorizationController : MainController
 
     private static long ToUnixEpochDate(DateTime date)
         => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+    private async Task<ResponseMessage> RegistrarCliente(UserRegisterViewModel userRegister)
+    {
+        var usuario = await _userManager.FindByEmailAsync(userRegister.Email);
+
+        var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+            Guid.Parse(usuario!.Id), userRegister.Nome, userRegister.Email, userRegister.Cpf);
+
+        try
+        {
+            return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+        }
+        catch
+        {
+            await _userManager.DeleteAsync(usuario);
+            throw;
+        }
+    }
 }

@@ -7,7 +7,6 @@ public class Cpf
     public const int CpfMaxLength = 11;
     public string Numero { get; private set; }
 
-    //Construtor do EntityFramework
     protected Cpf() { }
 
     public Cpf(string numero)
