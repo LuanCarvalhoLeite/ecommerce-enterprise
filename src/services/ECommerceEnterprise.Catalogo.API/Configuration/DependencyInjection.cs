@@ -7,26 +7,8 @@ namespace ECommerceEnterprise.Catalogo.API.Configuration;
 
 public static class DependencyInjection
 {
-    public static void RegisterService(this IServiceCollection services, IConfiguration configuration)
+    public static void AddRegisterService(this IServiceCollection services)
     {
-       services.AddControllers();
-       services.AddEndpointsApiExplorer(); 
-       services.AddSwaggerGen();
-
-       services.AddDbContext<CatalogoContext>(options =>
-           options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-       services.AddCors(options =>
-       {
-            options.AddPolicy("Total",
-                builder =>
-                    builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-       });
-
-
        services.AddScoped<IProdutoRepository, ProdutoRepository>();
        services.AddScoped<CatalogoContext>();
     }

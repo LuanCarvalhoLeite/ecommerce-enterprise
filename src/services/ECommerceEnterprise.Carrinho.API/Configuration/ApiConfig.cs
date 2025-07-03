@@ -16,6 +16,7 @@ public static class ApiConfig
      {
          options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
      });
+
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 

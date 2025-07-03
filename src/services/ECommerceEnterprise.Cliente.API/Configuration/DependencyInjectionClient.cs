@@ -14,28 +14,8 @@ namespace ECommerceEnterprise.Cliente.API.Configuration;
 
 public static class DependencyInjectionClient
 {
-    public static void AddRegisterService(this IServiceCollection services, IConfiguration configuration)
+    public static void AddRegisterService(this IServiceCollection services)
     {
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
-
-        services.AddDbContext<ClientesContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-        services.AddControllers();
-
-        services.AddCors(options =>
-        {
-            options.AddPolicy("Total",
-                builder =>
-                    builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-        });
-
-        services.AddMessageBusConfiguration(configuration);
-
         services.AddScoped<IMediatorHandler, MediatorHandler>();
         services.AddScoped<IRequestHandler<RegistrarClienteCommand, ValidationResult>, ClienteCommandHandler>();
 

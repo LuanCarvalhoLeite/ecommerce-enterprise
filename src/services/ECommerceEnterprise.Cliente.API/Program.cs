@@ -1,10 +1,13 @@
 using ECommerceEnterprise.Cliente.API.Configuration;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(typeof(Program));
-builder.Services.AddRegisterService(builder.Configuration);
+builder.Services.AddApiConfig(builder.Configuration);
+builder.Services.AddRegisterService();
+builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
 
 var app = builder.Build();

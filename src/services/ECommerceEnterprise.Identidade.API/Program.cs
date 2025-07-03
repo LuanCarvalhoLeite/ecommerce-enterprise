@@ -11,7 +11,6 @@ builder.Configuration
 builder.Services.AddIdetityConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
