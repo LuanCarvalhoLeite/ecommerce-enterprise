@@ -42,7 +42,7 @@ public class CarrinhoController : MainController
     }
 
     [HttpPut("carrinho/{produtoId}")]
-    public async Task<IActionResult> AtualizarItemCarrinho(Guid produtoId, CarrinhoItem item)
+    public async Task<IActionResult> AtualizarItemCarrinho(Guid produtoId, [FromBody] CarrinhoItem item)
     {
         var carrinho = await ObterCarrinhoCliente();
         var itemCarrinho = await ObterItemCarrinhoValidado(produtoId, carrinho, item);

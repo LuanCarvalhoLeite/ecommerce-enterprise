@@ -1,4 +1,5 @@
 ﻿using ECommerceEnterprise.Carrinho.API.Data;
+using ECommerceEnterprise.WepAPI.Core.Identidade;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceEnterprise.Carrinho.API.Configuration;
@@ -10,7 +11,11 @@ public static class ApiConfig
         services.AddDbContext<CarrinhoContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddControllers();
+        services.AddControllers()
+            .AddJsonOptions(options =>
+     {
+         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+     });
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
@@ -23,5 +28,7 @@ public static class ApiConfig
                         .AllowAnyMethod()
                         .AllowAnyHeader());
         });
+
+        services.AddJwtConfiguration(configuration);
     }
 }
