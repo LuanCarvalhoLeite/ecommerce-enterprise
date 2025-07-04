@@ -13,8 +13,8 @@ using System.Security.Claims;
 using System.Text;
 
 namespace ECommerceEnterprise.Identidade.API.Controllers;
-[Route("api/identidade[controller]")]
 [ApiController]
+[Route("api/identidade")]
 public class AuthorizationController : MainController
 {
     private readonly SignInManager<IdentityUser> _signInManager;
@@ -114,10 +114,12 @@ public class AuthorizationController : MainController
         claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
         claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));
 
-        foreach(var userRole in userRoles)
+        foreach (var userRole in userRoles)
         {
             claims.Add(new Claim("role", userRole));
         }
+
+        claims.Add(new Claim("Catalogo", "Ler"));
 
         var identityClaims = new ClaimsIdentity(claims);
 

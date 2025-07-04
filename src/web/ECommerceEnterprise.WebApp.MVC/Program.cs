@@ -2,29 +2,17 @@ using ECommerceEnterprise.WebApp.MVC.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddIdentityConfiguration();
 builder.Services.AddControllersWithViews();
 builder.Services.RegisterServices();
+builder.Services.AddMvcConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    
-}
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseMvcConfiguration(app.Environment);
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Catalogo}/{action=Index}/{id?}");
 
 app.Run();

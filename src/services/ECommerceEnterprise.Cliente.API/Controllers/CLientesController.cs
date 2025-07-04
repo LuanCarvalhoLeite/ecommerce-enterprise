@@ -17,8 +17,9 @@ public class CLientesController : MainController
     [HttpGet("clientes")]
     public async Task<IActionResult> Index()
     {
-        var result = await _mediatorHandler.EnviarComando(new RegistrarClienteCommand(Guid.NewGuid(), "Jose", "jose@gmail.com", "79566566050"));
-       
+        //var result = await _mediatorHandler.EnviarComando(new RegistrarClienteCommand(Guid.NewGuid(), "Jose", "jose@gmail.com", "79566566050"));
+        
+
         return CustomResponse();
     }
 
