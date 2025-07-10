@@ -4,7 +4,6 @@ using ECommerceEnterprise.WepAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceEnterprise.Cliente.API.Controllers;
-
 [ApiController]
 public class CLientesController : MainController
 {

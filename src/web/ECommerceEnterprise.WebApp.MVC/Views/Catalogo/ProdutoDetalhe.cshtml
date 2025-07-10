@@ -18,6 +18,8 @@
                     <form asp-controller="Carrinho" asp-action="AdicionarItemCarrinho" method="post">
                         
                         <input type="hidden" id="ProdutoId" name="ProdutoId" value="@Model.Id" />
+                        <input type="hidden" id="Nome" name="Nome" value="@Model.Nome" />
+                        <input type="hidden" id="Imagem" name="Imagem" value="@Model.Imagem" />
 
                         <h2 class="title">@Model.Nome</h2>
 

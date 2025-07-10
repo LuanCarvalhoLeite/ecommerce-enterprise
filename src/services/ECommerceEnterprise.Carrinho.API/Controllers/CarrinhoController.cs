@@ -26,7 +26,7 @@ public class CarrinhoController : MainController
     }
 
     [HttpPost("carrinho")]
-    public async Task<IActionResult> AdicionarItemCarrinho(CarrinhoItem item)
+    public async Task<IActionResult> AdicionarItemCarrinho([FromBody]CarrinhoItem item)
     {
         var carrinho = await ObterCarrinhoCliente();
 

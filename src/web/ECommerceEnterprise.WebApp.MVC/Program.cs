@@ -10,9 +10,9 @@ builder.Services.AddMvcConfiguration(builder.Configuration);
 var app = builder.Build();
 
 app.UseMvcConfiguration(app.Environment);
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Catalogo}/{action=Index}/{id?}");
+app.MapControllers();
+//app.MapControllerRoute(
+   // name: "default",
+   // pattern: "{controller=Catalogo}/{action=Index}/{id?}");
 
 app.Run();

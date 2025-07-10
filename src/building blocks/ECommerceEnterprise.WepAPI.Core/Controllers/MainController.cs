@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using FluentValidation.Results;
 
 namespace ECommerceEnterprise.WepAPI.Core.Controllers;
-
 public abstract class MainController : ControllerBase
 {
     protected ICollection<string> Erros = new List<string>();
