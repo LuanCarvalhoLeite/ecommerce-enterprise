@@ -11,7 +11,7 @@ public static class SwaggerConfig
             c.SwaggerDoc("v1", new OpenApiInfo()
             {
                 Title = "ECommerceEnterprise API Carrinho",
-                Description = "Estudos de .NET",
+                Description = "Desenvolvendo uma aplicação e-commerce",
             });
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

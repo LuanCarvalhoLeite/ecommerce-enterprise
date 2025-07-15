@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace ECommerceEnterprise.Catalogo.API.Configuration;
+namespace ECommerceEnterprise.Bff.Compras.Configuration;
 
 public static class SwaggerConfig
 {
@@ -10,7 +10,7 @@ public static class SwaggerConfig
         {
             c.SwaggerDoc("v1", new OpenApiInfo()
             {
-                Title = "ECommerceEnterprise API Catálogo",
+                Title = "ECommerceEnterprise API Bff de Compras",
                 Description = "Desenvolvendo uma aplicação e-commerce",
             });
 
