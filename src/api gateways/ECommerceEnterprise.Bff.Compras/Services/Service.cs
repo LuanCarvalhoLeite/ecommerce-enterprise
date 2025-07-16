@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using System.Text;
+using ECommerceEnterprise.Core.Communication;
 
 namespace ECommerceEnterprise.Bff.Compras.Services;
 
@@ -30,5 +31,10 @@ public abstract class Service
 
         response.EnsureSuccessStatusCode();
         return true;
+    }
+
+    protected ResponseResult RetornoOk()
+    {
+        return new ResponseResult();
     }
 }

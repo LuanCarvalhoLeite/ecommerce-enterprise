@@ -2,6 +2,7 @@
 using ECommerceEnterprise.WebApp.MVC.Models;
 using System.Text.Json;
 using System.Text;
+using ECommerceEnterprise.Core.Communication;
 
 namespace ECommerceEnterprise.WebApp.MVC.Services;
 

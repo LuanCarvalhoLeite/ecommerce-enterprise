@@ -11,8 +11,5 @@ var app = builder.Build();
 
 app.UseMvcConfiguration(app.Environment);
 app.MapControllers();
-//app.MapControllerRoute(
-   // name: "default",
-   // pattern: "{controller=Catalogo}/{action=Index}/{id?}");
 
 app.Run();

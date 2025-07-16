@@ -1,6 +1,7 @@
 ﻿using ECommerceEnterprise.WebApp.MVC.Extensions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using ECommerceEnterprise.Core.Communication;
 
 namespace ECommerceEnterprise.WebApp.MVC.Models;
 

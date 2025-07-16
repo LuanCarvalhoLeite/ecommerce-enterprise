@@ -1,4 +1,5 @@
-﻿using ECommerceEnterprise.WebApp.MVC.Models;
+﻿using ECommerceEnterprise.Core.Communication;
+using ECommerceEnterprise.WebApp.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceEnterprise.WebApp.MVC.Controllers;

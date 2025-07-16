@@ -1,9 +1,16 @@
-﻿using ECommerceEnterprise.WebApp.MVC.Extensions;
+﻿using ECommerceEnterprise.Core.Communication;
+using ECommerceEnterprise.WebApp.MVC.Extensions;
 using ECommerceEnterprise.WebApp.MVC.Models;
 using Microsoft.Extensions.Options;
 
 namespace ECommerceEnterprise.WebApp.MVC.Services;
 
+public interface IAutenticacaoService
+{
+    Task<UsuarioRespostaLogin> Login(UsuarioLogin usuarioLogin);
+
+    Task<UsuarioRespostaLogin> Registro(UsuarioRegistro usuarioRegistro);
+}
 public class AutenticacaoService : Service, IAutenticacaoService
 {
     private readonly HttpClient _httpClient;
