@@ -10,8 +10,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Commands\" />
+    <Folder Include="Application\Events\" />
+    <Folder Include="Application\Queries\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.Core\ECommerceEnterprise.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.MessageBus\ECommerceEnterprise.MessageBus.csproj" />
+    <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.WepAPI.Core\ECommerceEnterprise.WepAPI.Core.csproj" />
+    <ProjectReference Include="..\ECommerceEnterprise.Pedidos.Domain\ECommerceEnterprise.Pedidos.Domain.csproj" />
+    <ProjectReference Include="..\ECommerceEnterprise.Pedidos.Infra\ECommerceEnterprise.Pedidos.Infra.csproj" />
   </ItemGroup>
 
 </Project>
