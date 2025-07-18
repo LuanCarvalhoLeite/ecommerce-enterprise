@@ -2,6 +2,7 @@
 using ECommerceEnterprise.Core.DomainObjects;
 using ECommerceEnterprise.Core.Mediator;
 using ECommerceEnterprise.Core.Messages;
+using ECommerceEnterprise.Pedidos.Domain.Pedidos;
 using ECommerceEnterprise.Pedidos.Domain.Vouchers;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,8 @@ public class PedidosContext : DbContext, IUnitOfWork
     {
         _mediatorHandler = mediatorHandler;
     }
-
+    public DbSet<Pedido> Pedidos { get; set; }
+    public DbSet<PedidoItem> PedidoItems { get; set; }
     public DbSet<Voucher> Vouchers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,10 +32,30 @@ public class PedidosContext : DbContext, IUnitOfWork
         modelBuilder.Ignore<ValidationResult>();
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidosContext).Assembly);
+
+        foreach(var relationship in modelBuilder.Model.GetEntityTypes()
+            .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+
+        modelBuilder.HasSequence<int>("MySequence").StartsAt(1000).IncrementsBy(1);
+
+        base.OnModelCreating(modelBuilder);
     }
 
     public async Task<bool> Commit()
     {
+        foreach (var entry in ChangeTracker.Entries()
+            .Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
+        {
+            if (entry.State == EntityState.Added)
+            {
+                entry.Property("DataCadastro").CurrentValue = DateTime.Now;
+            }
+            if (entry.State == EntityState.Modified)
+            {
+                entry.Property("DataCadastro").IsModified = false;
+            }
+        }
+
         var sucesso = await base.SaveChangesAsync() > 0;
         if (sucesso) await _mediatorHandler.PublicarEventos(this);
 
