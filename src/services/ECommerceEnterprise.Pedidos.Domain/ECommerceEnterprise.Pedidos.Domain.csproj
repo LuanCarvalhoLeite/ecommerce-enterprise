@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NetDevPack" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.Core\ECommerceEnterprise.Core.csproj" />
   </ItemGroup>
 

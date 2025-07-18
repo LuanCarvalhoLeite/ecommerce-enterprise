@@ -1,5 +1,6 @@
 ﻿using ECommerceEnterprise.Core.Data;
 using ECommerceEnterprise.Pedidos.Domain.Vouchers;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceEnterprise.Pedidos.Infra.Data.Repository;
 
@@ -13,6 +14,11 @@ public class VoucherRepository : IVoucherRepository
     }
 
     public IUnitOfWork UnitOfWork => _context;
+
+    public async Task<Voucher> ObterVoucherPorCodigo(string codigo)
+    {
+        return await _context.Vouchers.FirstOrDefaultAsync(p => p.Codigo == codigo);
+    }
 
     public void Dispose()
     {

@@ -2,6 +2,7 @@
 using ECommerceEnterprise.Core.DomainObjects;
 using ECommerceEnterprise.Core.Mediator;
 using ECommerceEnterprise.Core.Messages;
+using ECommerceEnterprise.Pedidos.Domain.Vouchers;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,8 @@ public class PedidosContext : DbContext, IUnitOfWork
     {
         _mediatorHandler = mediatorHandler;
     }
+
+    public DbSet<Voucher> Vouchers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

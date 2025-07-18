@@ -1,6 +1,5 @@
 using ECommerceEnterprise.Cliente.API.Configuration;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

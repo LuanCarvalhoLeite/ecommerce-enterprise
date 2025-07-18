@@ -1,4 +1,5 @@
 ﻿using ECommerceEnterprise.Core.Mediator;
+using ECommerceEnterprise.Pedido.API.Application.Queries;
 using ECommerceEnterprise.Pedidos.Domain.Vouchers;
 using ECommerceEnterprise.Pedidos.Infra.Data;
 using ECommerceEnterprise.Pedidos.Infra.Data.Repository;
@@ -14,6 +15,7 @@ public static class DependencyInjectionConfig
         services.AddScoped<IAspNetUser, AspNetUser>();
 
         services.AddScoped<IMediatorHandler, MediatorHandler>();
+        services.AddScoped<IVoucherQueries, VoucherQueries>();
 
         services.AddScoped<IVoucherRepository, VoucherRepository>();
         services.AddScoped<PedidosContext>();
