@@ -82,7 +82,7 @@ public class CarrinhoController : MainController
 
     [HttpPost]
     [Route("carrinho/aplicar-voucher")]
-    public async Task<IActionResult> AplicarVoucher(Voucher voucher)
+    public async Task<IActionResult> AplicarVoucher([FromBody]Voucher voucher)
     {
         var carrinho = await ObterCarrinhoCliente();
 

@@ -17,7 +17,8 @@ public class VoucherRepository : IVoucherRepository
 
     public async Task<Voucher> ObterVoucherPorCodigo(string codigo)
     {
-        return await _context.Vouchers.FirstOrDefaultAsync(p => p.Codigo == codigo);
+        //return await _context.Vouchers.FirstOrDefaultAsync(p => p.Codigo == codigo);
+        return await _context.Vouchers.FirstOrDefaultAsync(p => p.Codigo.Trim().ToUpper() == codigo.Trim().ToUpper());
     }
 
     public void Dispose()
