@@ -1,9 +1,11 @@
 using ECommerceEnterprise.Cliente.API.Configuration;
+using ECommerceEnterprise.WepAPI.Core.Identidade;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(typeof(Program));
+builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddApiConfig(builder.Configuration);
 builder.Services.AddRegisterService();
 builder.Services.AddMessageBusConfiguration(builder.Configuration);

@@ -7,12 +7,17 @@ namespace ECommerceEnterprise.WebApp.MVC.Services;
 
 public interface IComprasBffService
 {
+
+    //Carrinho
     Task<CarrinhoViewModel> ObterCarrinho();
     Task<int> ObterQuantidadeCarrinho();
     Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoViewModel carrinho);
     Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoViewModel carrinho);
     Task<ResponseResult> RemoverItemCarrinho(Guid produtoId);
     Task<ResponseResult> AplicarVoucherCarrinho(string voucher);
+
+    //Pedido
+    PedidoTransacaoViewModel MapearParaPedido(CarrinhoViewModel carrinho, EnderecoViewModel endereco);
 }
 public class ComprasBffService : Service, IComprasBffService
 {
@@ -24,6 +29,7 @@ public class ComprasBffService : Service, IComprasBffService
         _httpClient.BaseAddress = new Uri(settings.Value.ComprasBffUrl);
     }
 
+    //Carrinho
     public async Task<CarrinhoViewModel> ObterCarrinho()
     {
         var response = await _httpClient.GetAsync("/compras/carrinho/");
@@ -68,7 +74,6 @@ public class ComprasBffService : Service, IComprasBffService
 
         return RetornoOk();
     }
-
     public async Task<ResponseResult> AplicarVoucherCarrinho(string voucher)
     {
         var itemContent = ObterConteudo(voucher);
@@ -78,5 +83,34 @@ public class ComprasBffService : Service, IComprasBffService
         if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
         return RetornoOk();
+    }
+
+    //Pedido
+    public PedidoTransacaoViewModel MapearParaPedido(CarrinhoViewModel carrinho, EnderecoViewModel endereco)
+    {
+        var pedido = new PedidoTransacaoViewModel
+        {
+            ValorTotal = carrinho.ValorTotal,
+            Itens = carrinho.Itens,
+            Desconto = carrinho.Desconto,
+            VoucherUtilizado = carrinho.VoucherUtilizado,
+            VoucherCodigo = carrinho.Voucher?.Codigo
+        };
+
+        if (endereco != null)
+        {
+            pedido.Endereco = new EnderecoViewModel
+            {
+                Logradouro = endereco.Logradouro,
+                Numero = endereco.Numero,
+                Bairro = endereco.Bairro,
+                Cep = endereco.Cep,
+                Complemento = endereco.Complemento,
+                Cidade = endereco.Cidade,
+                Estado = endereco.Estado
+            };
+        }
+
+        return pedido;
     }
 }

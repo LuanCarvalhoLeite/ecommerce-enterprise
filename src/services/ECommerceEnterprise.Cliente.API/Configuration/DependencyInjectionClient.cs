@@ -6,6 +6,7 @@ using ECommerceEnterprise.Cliente.API.Models;
 using ECommerceEnterprise.Cliente.API.Services;
 using ECommerceEnterprise.Core.Commands;
 using ECommerceEnterprise.Core.Mediator;
+using ECommerceEnterprise.WepAPI.Core.Usuario;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,13 @@ public static class DependencyInjectionClient
 {
     public static void AddRegisterService(this IServiceCollection services)
     {
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped<IAspNetUser, AspNetUser>();
+
         services.AddScoped<IMediatorHandler, MediatorHandler>();
+
         services.AddScoped<IRequestHandler<RegistrarClienteCommand, ValidationResult>, ClienteCommandHandler>();
+        services.AddScoped<IRequestHandler<AdicionarEnderecoCommand, ValidationResult>, ClienteCommandHandler>();
 
         services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
 

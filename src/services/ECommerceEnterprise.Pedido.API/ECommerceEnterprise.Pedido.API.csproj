@@ -22,11 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Commands\" />
-    <Folder Include="Application\Events\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.Core\ECommerceEnterprise.Core.csproj" />
     <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.MessageBus\ECommerceEnterprise.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\ECommerceEnterprise.WepAPI.Core\ECommerceEnterprise.WepAPI.Core.csproj" />

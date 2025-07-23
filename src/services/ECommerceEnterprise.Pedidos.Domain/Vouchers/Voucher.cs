@@ -30,4 +30,12 @@ public class Voucher : Entity, IAgregateRoot
         Utilizado = true;
         Quantidade = 0;
     }
+
+    public void DebitarQuantidade()
+    {
+        Quantidade -= 1;
+        if (Quantidade >= 1) return;
+
+        MarcarComoUtilizado();
+    }
 }

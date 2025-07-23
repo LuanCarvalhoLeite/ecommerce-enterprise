@@ -10,6 +10,7 @@ public abstract class Service
 {
     protected StringContent ObterConteudo(object dado)
     {
+
         return new StringContent(
             JsonSerializer.Serialize(dado),
             Encoding.UTF8,

@@ -1,30 +1,37 @@
 ﻿using ECommerceEnterprise.Cliente.API.Application.Commands;
+using ECommerceEnterprise.Cliente.API.Models;
 using ECommerceEnterprise.Core.Mediator;
 using ECommerceEnterprise.WepAPI.Core.Controllers;
+using ECommerceEnterprise.WepAPI.Core.Usuario;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceEnterprise.Cliente.API.Controllers;
 [ApiController]
-public class CLientesController : MainController
+public class ClientesController : MainController
 {
-    private readonly IMediatorHandler _mediatorHandler;
-    public CLientesController(IMediatorHandler mediatorHandler)
+    private readonly IClienteRepository _clienteRepository;
+    private readonly IMediatorHandler _mediator;
+    private readonly IAspNetUser _user;
+
+    public ClientesController(IClienteRepository clienteRepository, IMediatorHandler mediator, IAspNetUser user)
     {
-        _mediatorHandler = mediatorHandler;
+        _clienteRepository = clienteRepository;
+        _mediator = mediator;
+        _user = user;
     }
 
-    [HttpGet("clientes")]
-    public async Task<IActionResult> Index()
+    [HttpGet("cliente/endereco")]
+    public async Task<IActionResult> ObterEndereco()
     {
-        //var result = await _mediatorHandler.EnviarComando(new RegistrarClienteCommand(Guid.NewGuid(), "Jose", "jose@gmail.com", "79566566050"));
-        
+        var endereco = await _clienteRepository.ObterEnderecoPorId(_user.ObterUserId());
 
-        return CustomResponse();
+        return endereco == null ? NotFound() : CustomResponse(endereco);
     }
 
-    [HttpGet("Teste")]
-    public IActionResult Get()
+    [HttpPost("cliente/endereco")]
+    public async Task<IActionResult> AdicionarEndereco(AdicionarEnderecoCommand endereco)
     {
-        return Ok("Mediator injetado com sucesso!");
+        endereco.ClienteId = _user.ObterUserId();
+        return CustomResponse(await _mediator.EnviarComando(endereco));
     }
 }

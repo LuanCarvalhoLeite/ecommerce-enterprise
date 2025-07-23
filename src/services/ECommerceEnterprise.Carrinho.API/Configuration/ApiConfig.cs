@@ -30,6 +30,5 @@ public static class ApiConfig
                         .AllowAnyHeader());
         });
 
-        services.AddJwtConfiguration(configuration);
     }
 }

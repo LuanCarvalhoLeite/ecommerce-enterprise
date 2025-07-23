@@ -1,7 +1,7 @@
-﻿
-using ECommerceEnterprise.Core.Data;
+﻿using ECommerceEnterprise.Core.Data;
 using ECommerceEnterprise.Pedidos.Domain.Pedidos;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace ECommerceEnterprise.Pedidos.Infra.Data.Repository;
 
@@ -15,6 +15,8 @@ public class PedidoRepository : IPedidoRepository
     }
 
     public IUnitOfWork UnitOfWork => _context;
+
+    public DbConnection ObterConexao() => _context.Database.GetDbConnection();
 
     public async Task<Pedido> ObterPorId(Guid id)
     {

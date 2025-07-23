@@ -6,6 +6,12 @@ namespace ECommerceEnterprise.Cliente.API.Models;
 public interface IClienteRepository : IRepository<Client>
 {
     void Adicionar(Client cliente);
+
     Task<IEnumerable<Client>> ObterTodos();
+
     Task<Client> ObterPorCpf(string cpf);
+
+    void AdicionarEndereco(Endereco endereco);
+
+    Task<Endereco> ObterEnderecoPorId(Guid id);
 }
