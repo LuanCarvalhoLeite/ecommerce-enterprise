@@ -4,7 +4,6 @@ using ECommerceEnterprise.WepAPI.Core.Identidade;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddJwtConfiguration(builder.Configuration);
-
 builder.Services.AddApiConfig(builder.Configuration);
 builder.Services.AddRegisterService();
 

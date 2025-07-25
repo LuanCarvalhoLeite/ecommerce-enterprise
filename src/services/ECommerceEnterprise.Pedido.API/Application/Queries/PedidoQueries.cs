@@ -4,7 +4,6 @@ using ECommerceEnterprise.Pedidos.Domain.Pedidos;
 
 namespace ECommerceEnterprise.Pedido.API.Application.Queries;
 
-
 public interface IPedidoQueries
 {
     Task<PedidoDTO> ObterUltimoPedido(Guid clienteId);
@@ -29,12 +28,15 @@ public class PedidoQueries : IPedidoQueries
                                 FROM PEDIDOS P 
                                 INNER JOIN PEDIDOITEMS PIT ON P.ID = PIT.PEDIDOID 
                                 WHERE P.CLIENTEID = @clienteId 
-                                AND P.DATACADASTRO between DATEADD(minute, -3,  GETDATE()) and DATEADD(minute, 0,  GETDATE())
+                                AND P.DATACADASTRO between DATEADD(minute, -24,  GETDATE()) and DATEADD(minute, 0,  GETDATE())
                                 AND P.PEDIDOSTATUS = 1 
                                 ORDER BY P.DATACADASTRO DESC";
 
         var pedido = await _pedidoRepository.ObterConexao()
-                .QueryAsync<dynamic>(sql, new { clienteId });
+            .QueryAsync<dynamic>(sql, new { clienteId });
+
+        if (pedido == null || !pedido.Any())
+            return null;
 
         return MapearPedido(pedido);
     }
@@ -48,6 +50,10 @@ public class PedidoQueries : IPedidoQueries
 
     private PedidoDTO MapearPedido(dynamic result)
     {
+        // Protege para resultado vazio
+        if (result == null || result.Count == 0)
+            return null;
+
         var pedido = new PedidoDTO
         {
             Codigo = result[0].CODIGO,
