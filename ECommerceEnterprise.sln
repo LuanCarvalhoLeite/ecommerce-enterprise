@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceEnterprise.Pedidos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceEnterprise.Pedidos.Infra", "src\services\ECommerceEnterprise.Pedidos.Infra\ECommerceEnterprise.Pedidos.Infra.csproj", "{12DF2F1A-398E-4D26-AB15-455EC2897D76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceEnterprise.Pagamentos.PagNerd", "src\services\ECommerceEnterprise.Pagamentos.PagNerd\ECommerceEnterprise.Pagamentos.PagNerd.csproj", "{0514DD32-455B-43AA-A5AA-43C04090A553}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{12DF2F1A-398E-4D26-AB15-455EC2897D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12DF2F1A-398E-4D26-AB15-455EC2897D76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12DF2F1A-398E-4D26-AB15-455EC2897D76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0514DD32-455B-43AA-A5AA-43C04090A553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0514DD32-455B-43AA-A5AA-43C04090A553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0514DD32-455B-43AA-A5AA-43C04090A553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0514DD32-455B-43AA-A5AA-43C04090A553}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{2064D344-DF82-471A-8D18-302D16B32B94} = {2B329C72-A057-4E98-816C-2467C90D3305}
 		{38823240-9B81-4365-A8B5-BEBDE75B8F5E} = {0591F9D4-74DE-4263-B55E-2B1198D9EF4E}
 		{12DF2F1A-398E-4D26-AB15-455EC2897D76} = {0591F9D4-74DE-4263-B55E-2B1198D9EF4E}
+		{0514DD32-455B-43AA-A5AA-43C04090A553} = {18D7D51C-633F-4245-906C-608CB7260DDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00AE59F0-3388-48E1-8E93-E18E92D35DC3}
