@@ -1,16 +1,22 @@
-﻿namespace ECommerceEnterprise.Pagamento.API.Configuration;
+﻿using ECommerceEnterprise.Pagamento.API.Data;
+using ECommerceEnterprise.Pagamento.API.Facade;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
+namespace ECommerceEnterprise.Pagamento.API.Configuration;
 
 public static class ApiConfig
 {
-    public static void AddApiConfiguration(this IServiceCollection services)
+    public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        //Banco de Dados
+        services.AddDbContext<PagamentosContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
-        //Payment Config
+        services.Configure<PagamentoConfig>(configuration.GetSection("PagamentoConfig"));
 
         services.AddCors(options =>
         {
