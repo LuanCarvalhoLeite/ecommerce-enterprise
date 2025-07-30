@@ -12,4 +12,14 @@ public class Produto : Entity, IAgregateRoot
     public string Imagem { get; set; } = string.Empty;
     public int QuantidadeEstoque { get; set; }
 
+    public void RetirarEstoque(int quantidade)
+    {
+        if (QuantidadeEstoque >= quantidade)
+            QuantidadeEstoque -= quantidade;
+    }
+
+    public bool EstaDisponivel(int quantidade)
+    {
+        return Ativo && QuantidadeEstoque >= quantidade;
+    }
 }

@@ -37,8 +37,17 @@ public class Pedido : Entity, IAgregateRoot
         {
             PedidoStatus = PedidoStatus.Autorizado;
         }
+    public void CancelarPedido()
+    {
+        PedidoStatus = PedidoStatus.Cancelado;
+    }
 
-        public void AtribuirVoucher(Voucher voucher)
+    public void FinalizarPedido()
+    {
+        PedidoStatus = PedidoStatus.Pago;
+    }
+
+    public void AtribuirVoucher(Voucher voucher)
         {
             VoucherUtilizado = true;
             VoucherId = voucher.Id;

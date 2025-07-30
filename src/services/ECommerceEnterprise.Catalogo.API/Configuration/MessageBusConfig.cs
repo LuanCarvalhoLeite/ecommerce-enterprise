@@ -1,8 +1,8 @@
-﻿using ECommerceEnterprise.Core.Utils;
+﻿using ECommerceEnterprise.Catalogo.API.Services;
+using ECommerceEnterprise.Core.Utils;
 using ECommerceEnterprise.MessageBus;
-using ECommerceEnterprise.Pedido.API.Services;
 
-namespace ECommerceEnterprise.Pedido.API.Configuration;
+namespace ECommerceEnterprise.Catalogo.API.Configuration;
 
 public static class MessageBusConfig
 {
@@ -10,7 +10,6 @@ public static class MessageBusConfig
             IConfiguration configuration)
     {
         services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
-            .AddHostedService<PedidoOrquestradorIntegrationHandler>();
-            //.AddHostedService<PedidoIntegrationHandler>();
+            .AddHostedService<CatalogoIntegrationHandler>();
     }
 }

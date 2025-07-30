@@ -5,8 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddApiConfig(builder.Configuration);
+builder.Services.AddMessageBusConfiguration(builder.Configuration);
 builder.Services.AddRegisterService();
-
 builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();

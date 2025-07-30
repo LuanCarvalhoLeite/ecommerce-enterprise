@@ -40,6 +40,27 @@ public class PagamentoCartaoCreditoFacade : IPagamentoFacade
 
         return ParaTransacao(await transacao.AuthorizeCardTransaction());
     }
+
+    public async Task<Transacao> CapturarPagamento(Transacao transacao)
+    {
+        var pagNerdSvc = new PagNerdService(_pagamentoConfig.DefaultApiKey,
+            _pagamentoConfig.DefaultEncryptionKey);
+
+        var transaction = ParaTransaction(transacao, pagNerdSvc);
+
+        return ParaTransacao(await transaction.CaptureCardTransaction());
+    }
+
+    public async Task<Transacao> CancelarAutorizacao(Transacao transacao)
+    {
+        var pagNerdSvc = new PagNerdService(_pagamentoConfig.DefaultApiKey,
+            _pagamentoConfig.DefaultEncryptionKey);
+
+        var transaction = ParaTransaction(transacao, pagNerdSvc);
+
+        return ParaTransacao(await transaction.CancelAuthorization());
+    }
+
     public static Transacao ParaTransacao(Transaction transaction)
     {
         return new Transacao
@@ -53,6 +74,20 @@ public class PagamentoCartaoCreditoFacade : IPagamentoFacade
             DataTransacao = transaction.TransactionDate,
             NSU = transaction.Nsu,
             TID = transaction.Tid
+        };
+    }
+
+    public static Transaction ParaTransaction(Transacao transacao, PagNerdService pagNerdSvc)
+    {
+        return new Transaction(pagNerdSvc)
+        {
+            Status = (TransactionStatus)transacao.Status,
+            Amount = transacao.ValorTotal,
+            CardBrand = transacao.BandeiraCartao,
+            AuthorizationCode = transacao.CodigoAutorizacao,
+            Cost = transacao.CustoTransacao,
+            Nsu = transacao.NSU,
+            Tid = transacao.TID
         };
     }
 }
